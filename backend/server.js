@@ -9,11 +9,13 @@ dotenv.config();
 
 //set cors middleware
 app.use(cors());
+app.use(express.json());// for parsing json string data to json object
+
 
 //user route
 app.use("/", userRoute);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000; 
 
 //called data base connection
 dbConnection();
