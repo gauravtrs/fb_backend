@@ -1,3 +1,4 @@
+const user = require("../models/user");
 
 
 exports.emailValidation = (email) => {
@@ -12,4 +13,27 @@ exports.validationLength= (text ,min ,max) =>{
         return false;
     }
     return true;
+
 } 
+
+
+exports.usernameValidate=async(username) =>{
+    let a =false;
+    let randonNum =Math.floor(Math.random() * 10000); 
+
+    do {
+        const check =await user.findOne({username})
+
+        if(check){
+            username+= randonNum;
+            a=true
+
+        }else{
+            a=false
+        }
+
+
+        
+    } while (a);
+    return username
+}

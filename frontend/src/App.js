@@ -1,18 +1,21 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom';
+
+import Login from './pages/login/Login';
 
 const App = () => {
 
-  const getData =async() =>{
-    const res =await fetch('http://localhost:8000');
-    console.log(res);
-  }
-
-  getData();
+  
   return (
-    <div>App
-      <img width="48" height="48" src="https://img.icons8.com/fluency/48/facebook-new.png" alt="facebook-new"/>
+    <div>
+      
+      <Routes>
+
+          <Route path='/' element={<Login/>}/>
+
+      </Routes>
     </div>
   )
 }
-
+ 
 export default App
