@@ -177,7 +177,7 @@ exports.login =async(req ,res) =>{
       picture:userEmail.picture,
       verified:userEmail.verified,
       token,
-      message: "user login Success ! please activate your email to start",
+      
 
 
     })

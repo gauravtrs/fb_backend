@@ -11,7 +11,7 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());// for parsing json string data to json object
 
-
+ 
 //user route
 app.use("/", userRoute);
 
