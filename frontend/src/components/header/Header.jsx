@@ -83,7 +83,7 @@ export default function Header() {
           <img src={user?.picture} alt="not available" />
           <span>{user?.first_name}</span>
         </Link>
-        <div className="circle_icon hover1" ref={ref} >
+        <div className={`circle_icon hover1 ${showAllMenu && "active_header"}`} ref={ref} >
           
         <div
           onClick={() => {
@@ -103,7 +103,7 @@ export default function Header() {
           <Notifications />
           <div className="right_notification">5</div>
         </div>
-        <div className="circle_icon hover1" ref={refUserMenu}>
+        <div className={`circle_icon hover1 ${showUserMenu && "active_header"}`} ref={refUserMenu}>
 
           <div
           onClick={() => {

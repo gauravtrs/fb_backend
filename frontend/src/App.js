@@ -1,10 +1,11 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-
+import { LoggedInRoutes } from './routes/LoggedInRoutes';
 import Login from './pages/login/Login';
 import RegisterForm from './components/login/RegisterForm';
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
+import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 
 const App = () => {
 
@@ -14,10 +15,19 @@ const App = () => {
       
       <Routes>
 
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/register' element={<RegisterForm/>}/>
+        <Route element={<NotLoggedInRoutes/>}>
+          
+        <Route path='/login' element={<Login/>}/>
+         <Route path='/register' element={<RegisterForm/>}/>
+         
+        </Route>
+
+          <Route element={<LoggedInRoutes/>}>
+
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/' element={<Home/>} />
+
+           </Route>
 
       </Routes>
     </div>

@@ -67,7 +67,7 @@ exports.register=async(req ,res) =>{
  
 
 
-   const createUser = new user({first_name,last_name ,username:newusername,email,password:hashPassword,gender,
+   const createUser = await new user({first_name,last_name ,username:newusername,email,password:hashPassword,gender,
     bYear,bMonth,bDay});
 
    const saveUser =await createUser.save();
@@ -89,7 +89,7 @@ exports.register=async(req ,res) =>{
             username:saveUser.username,
             picture:saveUser.picture,
             verified:saveUser.verified,
-            token,
+            token:token,
             message: "Register Success ! please activate your email to start",
           })
 

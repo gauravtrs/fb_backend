@@ -1,4 +1,4 @@
-import { useRef } from "react";
+
 
 import { menu,create } from "../../data/allMenu";
 
@@ -95,8 +95,8 @@ export default function AllMenu() {
         </div>
         <div className="all_right">
           <div className="all_right_header">Create</div>
-          {create.map((item) => (
-            <div className="all_right_item hover1">
+          {create.map((item ,i) => (
+            <div className="all_right_item hover1" key={i}>
               <div className="all_right_circle">
                 <i className={item.icon}></i>
               </div>
