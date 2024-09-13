@@ -57,6 +57,18 @@
   cursor: pointer;
 }
 /*----Buttons----*/
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.768);
+  bottom: 0;
+  z-index: 99;
+}
+
+/*----Buttons----*/
+
 
 /*-----Hovers-----*/
 .hover1:hover {
@@ -64,6 +76,10 @@
 }
 .hover2:hover {
   background: var(--bg-third);
+}
+
+.hover3:hover {
+  background: #d4d6da3a;
 }
 /*-----Hovers-----*/
 

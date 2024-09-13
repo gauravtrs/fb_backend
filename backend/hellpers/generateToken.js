@@ -8,3 +8,5 @@ exports.generateToken=(userid,expire)=>{
     return token;
 
 }
+
+

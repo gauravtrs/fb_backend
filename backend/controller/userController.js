@@ -4,6 +4,7 @@ const { emailValidation, validationLength, usernameValidate } = require("../hell
 const { generateToken } = require("../hellpers/generateToken");
 const { sendVerificationMail } = require("../hellpers/mailder");
 const jwt =require('jsonwebtoken');
+const {generateNumber} =require('../hellpers/generateNumber');
 
 
 
@@ -76,7 +77,7 @@ exports.register=async(req ,res) =>{
    console.log(emailValidationToken);
 
 
-   const url =`${process.env.BASE_URL}/acvtivate/${emailValidationToken}`
+   const url =`${process.env.BASE_URL}/activate/${encodeURIComponent(emailValidationToken)}`
 
    sendVerificationMail(saveUser.email ,saveUser.first_name ,url)
 
@@ -115,9 +116,24 @@ exports.activateAccount =async(req ,res) =>{
         return res.status(400).json({ message: "Token is required" });
     }
 
+    //check authorize user 
+
+    let validUser =req.user.userid.id;
+    console.log('validateuser:',validUser)
+
     // Verify token
     const userVerify = jwt.verify(token, process.env.SECRET_TOKEN);
     console.log(userVerify);
+    if (!userVerify) {
+      return res.status(400).json({ message: "Invalid token" });
+    }
+
+    if(validUser !==userVerify.userid.id){
+      
+      return res.status(400).json({
+        message: "You don't have the authorization to complete this operation.",
+      });
+    }
 
     // Find user by ID 
     const check = await user.findById(userVerify.userid.id);
@@ -190,3 +206,54 @@ exports.login =async(req ,res) =>{
     
   }
 }
+
+
+//test auth 
+
+exports.auth= async(req,res) =>{
+  console.log(req.user)
+  res.status(200).json({message:"user auth sucessfull"});
+}
+
+
+
+//sendVerification again
+
+exports.sendVerification = async(req , res) =>{
+  try {
+
+    const getuserid =req.user.userid.id;
+    console.log('userid:', req.user.userid.id);
+    console.log('getuser:', getuserid);
+
+    const findUser = await user.findById(getuserid);
+    console.log('finduser:', findUser)
+
+    if(findUser.verified === true){
+
+      return res.status(400).json({
+        message: "This account is already activated.",
+      })
+    }
+
+    const mailToken =generateToken({id:findUser._id.toString()},'30m');
+
+    let url=`${process.env.BASE_URL}/activate/${mailToken}`
+
+    sendVerificationMail(findUser.email ,findUser.first_name ,url);
+
+    return res.status(200).json({
+      message: "Email verification link has been sent to your email.",
+    });
+
+
+
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    
+  }
+}
+
+
+

@@ -1,5 +1,6 @@
 const express =require('express');
-const {  register, activateAccount, login } = require('../controller/userController');
+const {  register, activateAccount, login , sendVerification} = require('../controller/userController');
+const {authUser}= require('../middlwares/userAuth');
 const router =express.Router();
 
 
@@ -7,10 +8,15 @@ const router =express.Router();
 router.post('/register' , register);
 
 //user activate account
-router.post('/activate' , activateAccount);
+router.post('/activate' , authUser,activateAccount);
 
 //user login
 router.post('/login' , login);
+
+//sendVerification mail again..
+
+router.post('/sendverification' ,authUser ,sendVerification)
+
 
 
 

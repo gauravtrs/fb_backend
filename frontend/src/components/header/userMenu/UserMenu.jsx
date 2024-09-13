@@ -3,10 +3,18 @@ import { Link } from 'react-router-dom'
 import SettingsPrivacy from './SettingsPrivacy'
 import HelpSupport from './HelpSupport';
 import DisplayAccessibility from './DisplayAccessibility';
+import { logout } from '../../../reduxToolkit/UserSlice';
+import { useDispatch} from 'react-redux'
 
 const UserMenu = ({user}) => {
 
     const [visible, setVisible] = useState(0);
+    const dispatch =useDispatch()
+  
+    const userLogout = () =>{
+      dispatch(logout())
+
+    }
 
   return (
     <div className="mmenu">
@@ -67,7 +75,7 @@ const UserMenu = ({user}) => {
             <i className="right_icon"></i>
           </div>
         </div>
-        <div className="mmenu_item hover3">
+        <div className="mmenu_item hover3" onClick={() => userLogout()}>
           <div className="small_circle">
             <i className="logout_filled_icon"></i>
           </div>

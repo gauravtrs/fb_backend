@@ -5,7 +5,9 @@ import Header from '../../components/header/Header';
 import RightHome from '../../components/home/right/RightHome';
 import Stories from '../../components/home/stories/Stories';
 import CreatePost from '../../components/createpost/CreatePost';
+import SendVerification from '../../components/home/sendVerification/SendVerification';
 import "./style.css";
+
 
 
 const Home = () => {
@@ -23,6 +25,7 @@ const Home = () => {
 
        <div className="home_middle">
         <Stories/>
+        {user.verified  === false && <SendVerification user={user}/>}
         <CreatePost user={user}/>
        </div>
        <RightHome user={user}/>

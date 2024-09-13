@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 
 const userCookie =Cookies.get('user')
 const initialState = userCookie ? JSON.parse(userCookie) :null
+console.log('this is initialstate values: ',initialState)
 
 
 const userSlice = createSlice({
@@ -14,8 +15,27 @@ const userSlice = createSlice({
 
            return action.payload;
         },
+
+
+
+        logout:(state ) =>{
+            
+            Cookies.remove('user');
+            return null;
+
+        },
+
+
+
+        verify:(state )=>{
+            if(state){
+                state.verified = true;
+            } 
+            Cookies.set('user',JSON.stringify(state))
+
+        }
     },
 });
 
-export const {loginuser} =userSlice.actions;
+export const {loginuser ,verify ,logout} =userSlice.actions;
 export default userSlice.reducer;

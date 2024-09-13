@@ -6,6 +6,7 @@ import RegisterForm from './components/login/RegisterForm';
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
+import ActivateUser from './pages/home/ActivateUser';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
 
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/' element={<Home/>} />
+          <Route path='/activate/:token' element={<ActivateUser/>}/>
 
            </Route>
 
