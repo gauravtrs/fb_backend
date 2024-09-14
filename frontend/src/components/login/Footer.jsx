@@ -62,7 +62,7 @@ const Footer = () => {
         </Link>
       </div>
     </footer>
-  );
+  ); 
 }
 
   

@@ -105,7 +105,7 @@ const LoginForm = ({setVisible}) => {
                   )}
                 </Formik>
 
-                <Link to={'/forget'} className='forget_password'>Forgotten password ?</Link>
+                <Link to={'/reset'} className='forget_password'>Forgotten password ?</Link>
 
                 <DotLoader color="#1876f2" loading={loading} size={30} />
                 {error && <div className="error_text">{error}</div>} 

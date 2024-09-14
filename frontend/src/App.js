@@ -7,6 +7,7 @@ import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import ActivateUser from './pages/home/ActivateUser';
+import Reset from './pages/reset/Reset';
 
 const App = () => {
 
@@ -30,6 +31,7 @@ const App = () => {
           <Route path='/activate/:token' element={<ActivateUser/>}/>
 
            </Route>
+           <Route path='reset' element={<Reset/>}/>
 
       </Routes>
     </div>

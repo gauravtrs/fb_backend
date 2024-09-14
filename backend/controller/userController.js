@@ -2,9 +2,10 @@ const user = require("../models/user");
 const bcrypt =require('bcrypt');
 const { emailValidation, validationLength, usernameValidate } = require("../hellpers/validation");
 const { generateToken } = require("../hellpers/generateToken");
-const { sendVerificationMail } = require("../hellpers/mailder");
+const { sendVerificationMail, sendPasswordCode } = require("../hellpers/mailder");
 const jwt =require('jsonwebtoken');
 const {generateNumber} =require('../hellpers/generateNumber');
+const Code = require("../models/code");
 
 
 
@@ -257,3 +258,78 @@ exports.sendVerification = async(req , res) =>{
 
 
 
+exports.findUser = async(req ,res) =>{
+  const {email} =req.body ;
+  const getUser = await user.findOne({email}).select('-password')
+
+  if(!getUser){
+    return res.status(400).json({
+      message:"Account does not exists"
+    })
+  }
+  return res.status(200).json({
+    email:getUser.email,
+    picture:getUser.picture,
+  })
+}
+
+
+exports.passwordVerificationCode = async(req , res) =>{
+
+  try {
+    const {email} =req.body;
+
+    const findUser = await user.findOne({email}).select("-password");
+    await Code.findOneAndDelete({user:findUser._id});
+    const codeGenerate =generateNumber(5);
+
+    const newCode = await new Code({code:codeGenerate , user:findUser._id}).save();
+    sendPasswordCode(findUser.email , findUser.first_name ,codeGenerate)
+
+    return res.status(200).json({
+      message: "Email reset code has been sent to your email",
+    });
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+exports.passwordCodeVerify = async(req , res) =>{
+
+  try {
+
+    const {email ,code} =req.body;
+    const findUser = await user.findOne({email});
+
+    const dbCode = await Code.findOne({user:findUser._id});
+
+    if(dbCode.code !== code){
+      return res.status(400).json({message:"Verification code is wrong.."})
+    }
+    return res.status(200).json({message:"ok"});
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+
+  }
+}
+
+
+exports.changePassword = async(req , res) =>{
+  try {
+    const {email , password} = req.body;
+    const brcyptPassword = await bcrypt.hash(password , 10)
+
+    await user.findOneAndUpdate({email},{password:brcyptPassword},)
+
+    return res.status(200).json({ message: "ok" });
+
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+
+    
+  }
+}
