@@ -15,7 +15,7 @@ const Home = () => {
 
 
   const user =useSelector((state) =>state.user)
-  console.log(user);
+  console.log(user); 
 
   return (
     <div className='home'>

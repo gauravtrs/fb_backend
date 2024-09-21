@@ -8,13 +8,18 @@ import Profile from './pages/profile/Profile';
 import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import ActivateUser from './pages/home/ActivateUser';
 import Reset from './pages/reset/Reset';
+import CreatePostPopup from './components/createPostPopup/CreatePostPopup';
+import { useSelector } from 'react-redux';
 
 const App = () => {
+  const user =useSelector((state) =>state.user)
+
 
   
   return (
     <div>
-      
+              <CreatePostPopup user={user} /> 
+
       <Routes>
 
         <Route element={<NotLoggedInRoutes/>}>
@@ -29,6 +34,7 @@ const App = () => {
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/' element={<Home/>} />
           <Route path='/activate/:token' element={<ActivateUser/>}/>
+
 
            </Route>
            <Route path='reset' element={<Reset/>}/>
