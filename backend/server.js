@@ -3,6 +3,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const userRoute = require("./routes/userRoute");
 const dbConnection = require("./connection/dbConnection");
+const routerUpload = require("./routes/uploadRoutes");
+const routerPost = require("./routes/postRoutes");
+const fileUpload = require('express-fileupload')
 
 const app = express();
 dotenv.config();
@@ -11,9 +14,18 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());// for parsing json string data to json object
 
+//file upload package
+app.use(fileUpload({
+  useTempFiles:true,
+}));
+
  
 //user route
 app.use("/", userRoute);
+//upload image route
+app.use('/', routerUpload);
+//post router
+app.use('/',routerPost);
 
 const port = process.env.PORT || 5000; 
 

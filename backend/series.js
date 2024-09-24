@@ -51,35 +51,39 @@
 // console.log(parseInt((103 % 100)+ (103/100)));
 //let power=Math.pow(2,y)
 
-function average(n, a,b,c) {
-   let len = [a,b,c] 
+// console.log(Math.ceil((16/6)));
+// console.log(Math.ceil(13/6));
 
-   let t=len.join('')
-   
-   let spltstring=t.split('')
-   
+// let friends=12;
+// let tvcharges=250;
 
-    for (let i = 1; i <= n; i++) {
-   
-      const [x,y,z] = spltstring.map(Number  )
-     console.log(x)
+// console.log(Math.ceil(friends/6) *tvcharges);
 
-        if ((x + y) > z) {
-            console.log('yes');
-        } else {
-            console.log('no');
-        }
+// let sch=2;
+// stu=10;
+// let pass=13;
 
-   }
+// if((sch*stu)/2 <pass){
+//     console.log('yes')
+// }else{
+//     console.log('no');
+// }
 
+
+let weapons=[3,4,6,7];
+let evencount=0;
+let oddcount=0;
+
+for(let i=1; i <= weapons[0] ;i++){
+    if((weapons[i])%2==0){
+        evencount +=1;
+    }else{
+        oddcount +=1
+    }
 }
 
-average(3,5,9,6);
-
-
-
-
-
+console.log('even:,',evencount);
+console.log('odd:', oddcount);
 
 
     
