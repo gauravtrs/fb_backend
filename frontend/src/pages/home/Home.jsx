@@ -10,7 +10,8 @@ import "./style.css";
 
 
 
-const Home = () => {
+  
+  const Home = ({setVisible}) => {
 
 
 
@@ -26,7 +27,7 @@ const Home = () => {
        <div className="home_middle">
         <Stories/>
         {user.verified  === false && <SendVerification user={user}/>}
-        <CreatePost user={user}/>
+        <CreatePost user={user} setVisible={setVisible}/>
        </div>
        <RightHome user={user}/>
 

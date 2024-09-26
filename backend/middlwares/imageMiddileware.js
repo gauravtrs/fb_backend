@@ -8,6 +8,7 @@ exports.imageMiddileware =async(req ,res ,next) =>{
          }
 
          let fileImage =Object.values(req.files).flat();
+         console.log(fileImage)
 
          fileImage.forEach((file)=>{
             if(  file.mimetype !== "image/jpeg" &&
@@ -26,7 +27,7 @@ exports.imageMiddileware =async(req ,res ,next) =>{
                   }
          })
         
-        
+        next();
 
     } catch (error) {
         return res.status(500).json({ message: error.message });
