@@ -42,7 +42,7 @@ const uploadToCloudinary =async(file , path) =>{
 
           if(res.secure_url){
             return{
-                ulr:res.secure_url,
+                url:res.secure_url,
             }
           } else {
             throw new Error("Failed to retrieve secure URL.");

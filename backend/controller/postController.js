@@ -3,7 +3,7 @@ const {post} =require('../models/post');
 exports.createPost =async(req , res)=>{
 
     try {
-        const newPost =await new post(req.bod).save()
+        const newPost =await new post(req.body).save();
         res.json(newPost)
         
     } catch (error) {

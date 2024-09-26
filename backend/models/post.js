@@ -25,7 +25,7 @@ const postSchema = new mongoose.Schema({
         required:true,
     },
 
-    backgound:{
+    background:{
         type:String,
     },
 
