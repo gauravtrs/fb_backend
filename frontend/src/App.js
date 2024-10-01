@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import { LoggedInRoutes } from './routes/LoggedInRoutes';
 import Login from './pages/login/Login';
@@ -9,17 +9,56 @@ import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import ActivateUser from './pages/home/ActivateUser';
 import Reset from './pages/reset/Reset';
 import CreatePostPopup from './components/createPostPopup/CreatePostPopup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { postsError,postsRequest,postsSuccess } from './reduxToolkit/GetAllPostsSlice';
+import axios from 'axios';
 
 const App = () => {
   const user =useSelector((state) =>state.user);
+  
   const [visible, setVisible] = useState(false);
+  const dispatch =useDispatch();
+  
+
+  
+  
+
+  useEffect(()=>{
+    if(user){
+      getAllData()
+    }
+  },[]);
+  
+  const getAllData = async()=>{
+    try {
+
+
+      dispatch(postsRequest())
+      const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getallpost` ,
+        {headers:{
+              Authorization:`Bearer${user.token}`,
+      },});
+        if(data){
+          dispatch(postsSuccess(data));
+          
+      console.log('get all data:', data);
+        }
+      
+
+
+
+    } catch (error) {
+      dispatch(postsError(error.response?.data?.message || 'Error fetching posts'));
+      
+    }
+  }
 
 
   
   return (
     <div>
-           {visible && <CreatePostPopup user={user} setVisible={setVisible} /> }   
+           {visible && <CreatePostPopup user={user} setVisible={setVisible} /> }  
+           
 
       <Routes>
 

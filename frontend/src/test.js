@@ -79,3 +79,4 @@
 //   console.log('no')
 // }
 
+console.log(Math.ceil(5/4));

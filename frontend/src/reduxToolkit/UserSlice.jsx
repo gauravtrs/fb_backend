@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 const userCookie =Cookies.get('user')
 const initialState = userCookie ? JSON.parse(userCookie) :null
-console.log('this is initialstate values: ',initialState)
+//console.log('this is initialstate values: ',initialState)
 
 
 const userSlice = createSlice({
