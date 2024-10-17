@@ -9,10 +9,7 @@
   min-height: 228px;
   width: 500px;
   border-radius: 5px;
-    max-height: 80vh;   
-   overflow-y: auto;   
 }
-
 .box_header {
   position: relative;
   display: flex;
@@ -418,4 +415,46 @@
   100% {
     width: 100%;
   }
+}
+@media (max-width: 735px) {
+  .rlmove {
+    right: 10px;
+  }
+}
+@media (max-width: 550px) {
+  .postBox {
+    width: 96%;
+  }
+
+  .post_backgrounds {
+    width: 80%;
+    overflow-x: auto;
+  }
+  .post_backgrounds img {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (max-width: 405px) {
+  .preview_actions {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mobile_text {
+    width: 50%;
+  }
+}
+@media (max-width: 380px) {
+  .post_input {
+    font-size: 17px;
+  }
+  .addtoyourpost {
+    justify-content: center;
+  }
+  .addto_text {
+    display: none;
+  }
+}
+.l0 {
+  left: 0;
 }

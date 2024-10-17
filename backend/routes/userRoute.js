@@ -1,5 +1,5 @@
 const express =require('express');
-const {  register, activateAccount, login , sendVerification, findUser, passwordVerificationCode, passwordCodeVerify, changePassword} = require('../controller/userController');
+const {  register, activateAccount, login , sendVerification, findUser, passwordVerificationCode, passwordCodeVerify, changePassword, searchProfile, updateProfilePicture, updateCoverPicture, updateDetails, addFriend, cancelRequest, unfollow, follow, acceptRequest, unfriend, deleteRequest} = require('../controller/userController');
 const {authUser}= require('../middlwares/userAuth');
 const router =express.Router();
 
@@ -30,6 +30,38 @@ router.post('/codeverify' , passwordCodeVerify)
 router.post('/changepassword' , changePassword)
 
 
+//search profile..
+router.get('/searchprofile/:username' ,authUser,searchProfile);
+
+//update profile picture
+router.put('/updateprofilepicture',authUser, updateProfilePicture);
+
+//update cover picture
+router.put('/updatecoverpicture',authUser , updateCoverPicture)
+
+//update details
+router.put('/updatedetails' ,authUser ,updateDetails)
+
+//add friend
+router.put('/addfriends/:id' ,authUser ,addFriend)
+
+//cancel friend requests
+router.put('/cancelrequest/:id' , authUser ,cancelRequest)
+
+//unfollows
+router.put('/unfollow/:id' , authUser ,unfollow)
+
+//follow
+router.put('/follow/:id' , authUser , follow)
+
+//accept request
+router.put('/acceptrequest/:id' , authUser ,acceptRequest)
+
+//unfriend
+router.put('/unfriend/:id' ,authUser ,unfriend)
+
+//delete friend request
+router.put('/deleterequest/:id' , authUser ,deleteRequest)
 
 
 

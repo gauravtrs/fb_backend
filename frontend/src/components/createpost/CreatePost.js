@@ -2,13 +2,18 @@ import React from 'react'
 import { Feeling ,LiveVideo ,Photo } from '../../svg';
 import './style.css';
 
-const CreatePost = ({user ,setVisible}) => {
+const CreatePost = ({user ,setVisible ,profile}) => {
   return (
     
     <div className="createPost">
       <div className="createPost_header">
         <img src={user?.picture} alt="" />
-        <div className="open_post hover2"  onClick={() => {setVisible(true);}} >
+        <div
+          className="open_post hover2"
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
           What's on your mind, {user?.first_name}
         </div>
       </div>
@@ -22,13 +27,20 @@ const CreatePost = ({user ,setVisible}) => {
           <Photo color="#4bbf67" />
           Photo/Video
         </div>
-        <div className="createPost_icon hover1">
-          <Feeling color="#f7b928" />
-          Feeling/Activity
-        </div>
+        {profile ? (
+          <div className="createPost_icon hover1">
+            <i className="lifeEvent_icon"></i>
+            Life Event
+          </div>
+        ) : (
+          <div className="createPost_icon hover1">
+            <Feeling color="#f7b928" />
+            Feeling/Activity
+          </div>
+        )}
       </div>
     </div>
-
+    
   )
 }
 

@@ -159,9 +159,7 @@ const userSchema =new mongoose.Schema({
         hometown:{
             type:String,
         },
-    },
 
-        
         relationShip:{
             type:String,
             enum:['single', 'in a relationsip' ,'married' ,'divorced' ],
@@ -170,6 +168,9 @@ const userSchema =new mongoose.Schema({
         instagram:{
             type:String,
         },
+
+    },
+ 
 
         savePost:[
             {
@@ -189,7 +190,8 @@ const userSchema =new mongoose.Schema({
     
 
 
-},{timestamps:true})
+},
+{timestamps:true})
 
 
 const user =mongoose.model('user' ,userSchema);

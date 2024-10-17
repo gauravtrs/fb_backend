@@ -33,9 +33,16 @@ const userSlice = createSlice({
             } 
             Cookies.set('user',JSON.stringify(state))
 
-        }
+        },
+
+        updatePicturepic:(state ,action) =>{
+            if(state){
+                state.picture=action.payload ;
+            }
+            Cookies.set('user', JSON.stringify(state));
+        },
     },
 });
 
-export const {loginuser ,verify ,logout} =userSlice.actions;
+export const {loginuser ,verify ,logout ,updatePicturepic} =userSlice.actions;
 export default userSlice.reducer; 

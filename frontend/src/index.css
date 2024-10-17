@@ -55,7 +55,28 @@
   justify-content: center;
   gap: 6px;
   cursor: pointer;
+}  
+
+.light_blue_btn {
+  border: none;
+  outline: none;
+  background: var(--light-blue-color);
+  padding: 8.5px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
 }
+
+
+
+
 /*----Buttons----*/
 .blur {
   position: fixed;
@@ -64,7 +85,7 @@
   right: 0;
   background: rgba(255, 255, 255, 0.768);
   bottom: 0;
-  z-index: 99;
+  z-index: 9999999999;;
 }
 
 /*----Buttons----*/

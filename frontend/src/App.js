@@ -16,6 +16,8 @@ import axios from 'axios';
 const App = () => {
   const user =useSelector((state) =>state.user);
   
+
+  
   const [visible, setVisible] = useState(false);
   const dispatch =useDispatch();
   
@@ -41,7 +43,7 @@ const App = () => {
         if(data){
           dispatch(postsSuccess(data));
           
-      console.log('get all data:', data);
+  
         }
       
 
@@ -71,7 +73,9 @@ const App = () => {
 
           <Route element={<LoggedInRoutes/>}>
 
-          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/profile' element={<Profile setVisible={setVisible}/>}/>
+          <Route path='/profile/:username' element={<Profile setVisible={setVisible}/>}/>
+
           <Route path='/' element={<Home  setVisible={setVisible}/>}  />
           <Route path='/activate/:token' element={<ActivateUser/>}/>
 
