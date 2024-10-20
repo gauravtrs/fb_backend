@@ -343,6 +343,7 @@ exports.searchProfile =async(req , res) =>{
 
     let {username} =req.params;
     const Users=await user.findById(req.user.userid.id);
+    
     const profile =await user.findOne({username}).select('-password');
     const friendship={
       friends:false,
@@ -377,7 +378,10 @@ exports.searchProfile =async(req , res) =>{
 
 
 
-     const posts = await post.find({user:profile._id}).populate("user").sort({createdAt: -1})
+     const posts = await post.find({user:profile._id}).populate("user")
+     .populate("comments.commentedBy", "first_name last_name username picture commentedAt").sort({createdAt: -1});
+     await profile.populate('friends', 
+      "first_name last_name username picture");
     res.status(200).json({...profile.toObject() , posts ,friendship})
     
   } catch (error) {
@@ -575,11 +579,11 @@ exports.follow = async (req, res) => {
 
 exports.acceptRequest = async(req , res) =>{
 
-  try {
+  try { 
     
     if (req.user.userid.id !== req.params.id) {
-      const sender = await user.findById(req.user.userid.id);
-      const receiver = await user.findById(req.params.id);
+      const receiver = await user.findById(req.user.userid.id);
+      const sender = await user.findById(req.params.id);
 
       if(receiver.request.includes(sender._id)){
         await receiver.updateOne({
@@ -644,8 +648,9 @@ exports.deleteRequest = async(req , res) =>{
   try {
 
     if (req.user.userid.id !== req.params.id) {
-      const sender = await user.findById(req.user.userid.id);
-      const receiver = await user.findById(req.params.id);
+            
+    const  receiver = await user.findById(req.user.userid.id);
+    const sender = await user.findById(req.params.id);
 
       if(receiver.request.includes(sender._id)){
 

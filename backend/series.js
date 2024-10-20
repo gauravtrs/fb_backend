@@ -70,23 +70,38 @@
 // }
 
 
-let weapons=[3,4,6,7];
-let evencount=0;
-let oddcount=0;
+// let weapons=[3,4,6,7];
+// let evencount=0;
+// let oddcount=0;
 
-for(let i=1; i <= weapons[0] ;i++){
-    if((weapons[i])%2==0){
-        evencount +=1;
-    }else{
-        oddcount +=1
-    }
-}
+// for(let i=1; i <= weapons[0] ;i++){
+//     if((weapons[i])%2==0){
+//         evencount +=1;
+//     }else{
+//         oddcount +=1
+//     }
+// }
 
-console.log('even:,',evencount);
-console.log('odd:', oddcount);
+// console.log('even:,',evencount);
+// console.log('odd:', oddcount);
 
+const numbers = [4, 5, 6, 4]; // Yeh numbers hai jinko hum process karenge
 
-    
+let group = {}; // Ye ek empty object hai jisme hum keys aur values store karenge
+
+numbers.forEach((num) => {
+  // Yahan hum har number ko process kar rahe hain
+  group[num] =group[num] || [] // Agar group[num] nahi hai to empty array banao
+  
+  // group[num] yahan dynamically key ban raha hai
+  // jaise pehli baar jab num = 4 hai, to group[4] create ho raha hai
+  // aur agar pehli baar nahi hai, to usi array ko use kiya ja raha hai
+  
+  group[num].push(num); // Current number ko us array me add karo
+});
+
+console.log(group['4']);
+
 
 
 

@@ -5,7 +5,8 @@ const userRoute = require("./routes/userRoute");
 const dbConnection = require("./connection/dbConnection");
 const routerUpload = require("./routes/uploadRoutes");
 const routerPost = require("./routes/postRoutes");
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
+const routerReact = require("./routes/reactRoutes");
 
 const app = express();
 dotenv.config();
@@ -26,6 +27,8 @@ app.use("/", userRoute);
 app.use('/', routerUpload);
 //post router
 app.use('/',routerPost);
+//React router
+app.use('/' ,routerReact);
 
 const port = process.env.PORT || 5000; 
 

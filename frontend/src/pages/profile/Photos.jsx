@@ -45,7 +45,7 @@ const Photos = ({username ,token}) => {
             dispatch(photosSuccess(data));
 
           }
-            console.log('Fetched photos data:', data);
+            
           
         } catch (error) {
           dispatch(photoseError(error.response?.data?.message || 'Error fetching photos'));

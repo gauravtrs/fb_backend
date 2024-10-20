@@ -7,6 +7,8 @@ import { Follow } from "../../functions/Follow";
 import { AcceptRequest } from "../../functions/AcceptRequest";
 import { CancelRequest } from "../../functions/CancelRequest";
 import { Unfollow } from "../../functions/Unfollow";
+import { Unfriend } from "../../functions/Unfriend";
+import { DeleteRequest} from "../../functions/DeleteRequest";
 
 export default function Friendship({ friendshipp ,profileid }) {
   const [friendsMenu, setFriendsMenu] = useState(false);
@@ -46,6 +48,43 @@ export default function Friendship({ friendshipp ,profileid }) {
     await Unfollow(profileid ,user.token);
   }
 
+  const acceptRequestHanlder = async () => {
+    setFriendship({
+      ...friendship,
+      friends: true,
+      following: true,
+      requestSent: false,
+      requestReceived: false,
+    });
+    await AcceptRequest(profileid, user.token);
+  };
+
+
+  const unfriendHandler = async() =>{
+
+    setFriendship({
+      ...friendship,
+      friends: false,
+      following: false,
+      requestSent: false,
+      requestReceived: false,
+    });
+    await Unfriend(profileid, user.token);
+  };
+
+  const deleteRequestHanlder = async () =>{
+    setFriendship({
+      ...friendship,
+      friends: false,
+      following: false,
+      requestSent: false,
+      requestReceived: false,
+    });
+    await DeleteRequest(profileid, user.token);
+
+  }
+  
+
 
 
 
@@ -83,7 +122,8 @@ export default function Friendship({ friendshipp ,profileid }) {
                   Follow
                 </div>
               )}
-              <div className="open_cover_menu_item hover1">
+              <div className="open_cover_menu_item hover1" onClick={() => unfriendHandler()}
+              >
                 <i className="unfriend_outlined_icon"></i>
                 Unfriend
               </div>
@@ -117,32 +157,37 @@ export default function Friendship({ friendshipp ,profileid }) {
             </button>
             {respondMenu && (
               <div className="open_cover_menu" ref={menu1}>
-                <div className="open_cover_menu_item hover1">Confirm</div>
-                <div className="open_cover_menu_item hover1">Delete</div>
+                <div className="open_cover_menu_item hover1" 
+                 onClick={() => acceptRequestHanlder()}
+                >Confirm</div>
+                <div className="open_cover_menu_item hover1" 
+                onClick={() => deleteRequestHanlder()}>Delete</div>
               </div>
             )}
           </div>
         )
       )}
-      {friendship?.following ? (
-        <button className="gray_btn" onClick={() => unfollowHandler()}>
-          <img src="../../../icons/follow.png" alt="" />
-          <span>Following</span>
+       <div className="flex">
+        {friendship?.following ? (
+          <button className="gray_btn" onClick={() => unfollowHandler()}>
+            <img src="../../../icons/follow.png" alt="" />
+            <span>Following</span>
+          </button>
+        ) : (
+          <button className="blue_btn" onClick={() => followHandler()}>
+            <img src="../../../icons/follow.png" className="invert" alt="" />
+            <span>Follow</span>
+          </button>
+        )}
+        <button className={friendship?.friends ? "blue_btn" : "gray_btn"}>
+          <img
+            src="../../../icons/message.png"
+            className={friendship?.friends && "invert"}
+            alt=""
+          />
+          <span>Message</span>
         </button>
-      ) : (
-        <button className="blue_btn" onClick={() => followHandler()}>
-          <img src="../../../icons/follow.png" className="invert" alt="" />
-          <span>Follow</span>
-        </button>
-      )}
-      <button className={friendship?.friends ? "blue_btn" : "gray_btn"}>
-        <img
-          src="../../../icons/message.png"
-          className={friendship?.friends && "invert"}
-          alt=""
-        />
-        <span>Message</span>
-      </button>
+      </div>
     </div>
   );
 }

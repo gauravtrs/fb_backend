@@ -1,7 +1,7 @@
 .pictureBox {
   width: 700px !important;
-
-  height: 700px;
+  /* height: 700px; */
+  height: 660px 
 }
 .update_picture_wrap {
   padding: 10px 15px;
@@ -118,8 +118,8 @@
 }
 .update_submit_wrap {
   position: absolute;
-   /* bottom: 1rem; */
-   bottom: -10rem; 
+  /* bottom: 1rem;  */
+  bottom: 6rem;  
   right: 1rem;
   display: flex;
   align-items: center;

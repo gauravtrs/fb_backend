@@ -20,13 +20,14 @@ import { useMediaQuery } from "react-responsive";
 const Profile = ({setVisible}) => {
   const { username } = useParams();
   const user = useSelector((state) => state.user);
-  console.log(user)
+  
   const { loading, profile, error } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
   const [othername, setOthername] = useState();
+  console.log('profiledetails----',profile)
 
-  console.log('profileid----',profile)
+  
 
   
   

@@ -7,7 +7,7 @@ const initialState ={
     
 };
 
-console.log('posts initial data: ',initialState)
+
 
 
 const postSlice = createSlice({

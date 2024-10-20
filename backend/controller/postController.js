@@ -24,3 +24,32 @@ exports.getAllPost = async(req , res) =>{
 
     }
 }
+
+
+exports.comment = async(req , res) =>{
+    try {
+        const { comment, image, postId } = req.body;
+        let newComments = await post.findByIdAndUpdate(
+          postId,
+          {
+            $push: {
+                comments: {
+                comment: comment,
+                image: image,
+                commentedBy:req.user.userid.id,
+                commentAt: new Date(),
+
+              },
+            },
+          },
+          {
+            new: true,
+          }
+        ).populate("comments.commentedBy", "picture first_name last_name username");
+        console.log('new comments--- ',newComments.comments)
+        res.json(newComments.comments);
+      } catch (error) {
+        return res.status(500).json({ message: error.message });
+      }
+    };
+    

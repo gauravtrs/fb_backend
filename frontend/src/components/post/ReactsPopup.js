@@ -1,5 +1,8 @@
 import React from 'react'
 
+
+
+
 const reactsArray = [
     {
       name: "like",
@@ -27,7 +30,12 @@ const reactsArray = [
     },
   ];
 
-const ReactsPopup = ({ visible, setVisible }) => {
+  
+    const ReactsPopup = ({ visible, setVisible ,postId  ,reactHandler}) => {
+  
+
+  
+
   return (
     <>
     {visible && (
@@ -45,7 +53,9 @@ const ReactsPopup = ({ visible, setVisible }) => {
         }}
       >
         {reactsArray.map((react, i) => (
-          <div className="react" key={i}>
+          <div className="react" key={i}
+          onClick={() =>reactHandler(react.name)}
+          >
             <img src={react.image} alt="" />
           </div>
         ))}
