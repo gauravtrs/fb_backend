@@ -47,7 +47,7 @@ const postSchema = new mongoose.Schema({
 
         commentedAt:{
             type:Date,
-            default:new Date(),
+            required:true,
         },
 
     },

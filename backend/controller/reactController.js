@@ -1,6 +1,7 @@
 
 const mongoose = require("mongoose");
-const React =require('../models/React')
+const React =require('../models/React');
+const user = require("../models/user");
 
 
 
@@ -80,12 +81,14 @@ exports.getReact =async(req ,res) =>{
                 },
               ];
                 
-
+              const foundUser = await user.findById(req.user.userid.id);
+              const checkSaved =foundUser.savePost.find((x)=> x.post?.toString() === req.params.id);
             
             
         res.json({reacts ,
              check:check?.react,
              total: reactsArray.length,
+             checkSaved:checkSaved ? true :false,
 
             });
             

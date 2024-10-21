@@ -22,7 +22,7 @@ import UseclickOutside from "../../helpers/clickOutside";
 import UserMenu from "./userMenu/UserMenu";
 
 
-export default function Header({page}) {
+export default function Header({page ,getAllData}) {
   const  user  = useSelector((state) =>state.user);
   const [showSearchMenu ,setshowSearchMenu] =useState(false)
   const [showAllMenu, setShowAllMenu] = useState(false);
@@ -62,7 +62,7 @@ export default function Header({page}) {
       {showSearchMenu && <SearchMenu color={color} setshowSearchMenu={setshowSearchMenu}/>}
       
       <div className="header_middle">
-        <Link to="/" className={`middle_icon ${page ==="home" ? "active": "hover1"}`}>
+        <Link to="/" className={`middle_icon ${page ==="home" ? "active": "hover1"}`} onClick={()=>getAllData()}>
         {page ==="home" ? <HomeActive /> :<Home color={color}/>}
           
         

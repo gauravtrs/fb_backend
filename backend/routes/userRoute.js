@@ -1,5 +1,11 @@
 const express =require('express');
-const {  register, activateAccount, login , sendVerification, findUser, passwordVerificationCode, passwordCodeVerify, changePassword, searchProfile, updateProfilePicture, updateCoverPicture, updateDetails, addFriend, cancelRequest, unfollow, follow, acceptRequest, unfriend, deleteRequest} = require('../controller/userController');
+const {  register, activateAccount, login ,
+     sendVerification, findUser, passwordVerificationCode,
+      passwordCodeVerify, changePassword, searchProfile, updateProfilePicture, 
+      updateCoverPicture, updateDetails, addFriend, cancelRequest, unfollow, follow, 
+      acceptRequest, unfriend, deleteRequest, search, 
+      addToSearchHistory,
+      getSearchHistory} = require('../controller/userController');
 const {authUser}= require('../middlwares/userAuth');
 const router =express.Router();
 
@@ -62,6 +68,15 @@ router.put('/unfriend/:id' ,authUser ,unfriend)
 
 //delete friend request
 router.put('/deleterequest/:id' , authUser ,deleteRequest)
+
+//search..
+router.post("/search/:searchTerm", authUser, search);
+
+//add to search history
+router.put("/addToSearchHistory", authUser, addToSearchHistory);
+
+//get search history
+router.get('/getsearchhistory' , authUser , getSearchHistory);
 
 
 

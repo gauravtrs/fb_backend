@@ -12,7 +12,7 @@ import Post from '../../components/post/Post';
 
 
   
-  const Home = ({setVisible}) => {
+  const Home = ({setVisible ,getAllData}) => {
 
 
 
@@ -28,7 +28,7 @@ import Post from '../../components/post/Post';
 
   return (
     <div className="home" style={{ height: `${height + 150}px` }} >
-      <Header page='home'/>
+      <Header page='home'  getAllData={getAllData}/>
       
 
       <LeftHome user={user} />

@@ -15,7 +15,7 @@ const Comment = async (postId, comment, image, token) => {
         },
       }
     );
-    console.log('new created commets---' , data)
+    
     return data;  
   } catch (error) {
     return error.response ? error.response.data.message : "An error occurred";

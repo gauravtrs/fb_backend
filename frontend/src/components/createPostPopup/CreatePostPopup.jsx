@@ -9,6 +9,9 @@ import { createPost } from "../../functions/Post";
 import PostError from "./PostError";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { uplaodImages } from "../../functions/uplaodImages";
+import { postsError, postsRequest, postsSuccess } from "../../reduxToolkit/GetAllPostsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { profilePosts } from "../../reduxToolkit/GetProfile";
 
 
 
@@ -21,6 +24,8 @@ export default function CreatePostPopup({ user ,setVisible}) {
   const popup=useRef(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const {posts } =useSelector((state) =>state.posts)
+  const dispatch = useDispatch();
 
 
 
@@ -41,7 +46,9 @@ export default function CreatePostPopup({ user ,setVisible}) {
         user.token
       );
       setLoading(false);
-      if (response === "ok") {
+      if (response.status  === "ok") {
+        dispatch(postsSuccess([response.data ,...posts]))
+        dispatch(profilePosts([response.data ,...posts]))
         setBackground("");
         setText("");
         setVisible(false);
@@ -62,7 +69,9 @@ export default function CreatePostPopup({ user ,setVisible}) {
       const response = await uplaodImages(formData, path, user.token);
       let res= await createPost(null, null, text, response, user.id, user.token);
       setLoading(false);
-      if(res === 'ok'){          
+      if(res.status === 'ok'){  
+        dispatch(postsSuccess([res.data ,...posts]))  
+        dispatch(profilePosts([res.data ,...posts]))     
       setText("");
       setImages("");
       setVisible(false);
@@ -81,7 +90,9 @@ export default function CreatePostPopup({ user ,setVisible}) {
         user.token
       );
       setLoading(false);
-      if (response === "ok") {
+      if (response.status === "ok") {
+        dispatch(postsSuccess([response.data ,...posts]))
+        dispatch(profilePosts([response.data ,...posts]))
         setBackground("");
         setText("");
         setVisible(false);

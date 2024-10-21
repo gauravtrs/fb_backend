@@ -15,6 +15,8 @@ import axios from 'axios';
 
 const App = () => {
   const user =useSelector((state) =>state.user);
+
+  
   
 
   
@@ -31,29 +33,24 @@ const App = () => {
     }
   },[]);
   
-  const getAllData = async()=>{
+  const getAllData = async () => {
     try {
-
-
-      dispatch(postsRequest())
-      const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getallpost` ,
-        {headers:{
-              Authorization:`Bearer${user.token}`,
-      },});
-        if(data){
-          dispatch(postsSuccess(data));
-          
+      dispatch(postsRequest());
+      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getallpost`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`, // Add a space here
+        },
+      });
   
-        }
       
-
-
-
+      if (data) {
+        dispatch(postsSuccess(data));
+      }
     } catch (error) {
       dispatch(postsError(error.response?.data?.message || 'Error fetching posts'));
-      
     }
-  }
+  };
+  
 
 
   
@@ -73,10 +70,10 @@ const App = () => {
 
           <Route element={<LoggedInRoutes/>}>
 
-          <Route path='/profile' element={<Profile setVisible={setVisible}/>}/>
-          <Route path='/profile/:username' element={<Profile setVisible={setVisible}/>}/>
+          <Route path='/profile' element={<Profile setVisible={setVisible} getAllData={getAllData} />}/>
+          <Route path='/profile/:username' element={<Profile setVisible={setVisible} getAllData={getAllData}/>}/>
 
-          <Route path='/' element={<Home  setVisible={setVisible}/>}  />
+          <Route path='/' element={<Home  setVisible={setVisible} getAllData={getAllData}/>}  />
           <Route path='/activate/:token' element={<ActivateUser/>}/>
 
 

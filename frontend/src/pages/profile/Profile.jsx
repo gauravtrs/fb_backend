@@ -17,7 +17,7 @@ import Friends from './Friends';
 import Intro from '../../components/intro/Intro';
 import { useMediaQuery } from "react-responsive";
 
-const Profile = ({setVisible}) => {
+const Profile = ({setVisible ,getAllData}) => {
   const { username } = useParams();
   const user = useSelector((state) => state.user);
   
@@ -25,7 +25,7 @@ const Profile = ({setVisible}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
   const [othername, setOthername] = useState();
-  console.log('profiledetails----',profile)
+  
 
   
 
@@ -104,7 +104,7 @@ const Profile = ({setVisible}) => {
   return (
     
     <div className="profile">
-      <Header page="profile" />
+      <Header page="profile"  getAllData={getAllData}/>
       <div className="profile_top" ref={profileTop}>
         <div className="profile_container">
           <Cover cover={profile.cover} visitor={visitor} />

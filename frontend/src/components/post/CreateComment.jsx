@@ -8,7 +8,7 @@ import dataURItoBlob from '../../helpers/dataURItoBlob';
 
 
 
-const CreateComment = ({user ,postId}) => {
+const CreateComment = ({user ,postId ,setComments ,setCount}) => {
 const [picker, setPicker] = useState(false);
   const [text, setText] = useState("");
   const [error, setError] = useState("");
@@ -78,6 +78,9 @@ const [picker, setPicker] = useState(false);
           imgComment[0].url,
           user.token
         );
+        setComments(comments);
+        // setCount((prev) => ++prev);
+
         
         setLoading(false);
         setText("");
@@ -86,6 +89,9 @@ const [picker, setPicker] = useState(false);
         setLoading(true);
 
         const comments = await Comment(postId, text, "", user.token);
+        setComments(comments);
+        // setCount((prev) => ++prev);
+
         // console.log('comeentsss-----',comments);
         setLoading(false);
         setText("");

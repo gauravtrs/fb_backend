@@ -2,7 +2,6 @@ import Moment from "react-moment";
 
 export default function Commentss({ comment }) {
 
-    console.log('profilepicture--' , comment.commentedBy.picture)
     
     return (
         <div className="comment">

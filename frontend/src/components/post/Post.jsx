@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './style.css';
 import { Link } from 'react-router-dom';
 import Moment  from 'react-moment';
@@ -19,6 +19,8 @@ const Post = ({post ,user ,profile}) => {
     const [total, setTotal] = useState(0);
     const [comments, setComments] = useState([]);
     const [count, setCount] = useState(1);
+    const [checkSaved, setCheckSaved] = useState();
+
 
 
 
@@ -31,7 +33,8 @@ const Post = ({post ,user ,profile}) => {
   
     
        useEffect(()=>{
-          getPostReacts();   
+          getPostReacts();  
+
        },[post ])
 
        useEffect(() => {
@@ -45,6 +48,7 @@ const Post = ({post ,user ,profile}) => {
         setReacts(res.reacts);
         setCheck(res.check);
         setTotal(res.total);
+        setCheckSaved(res.checkSaved)
       };
     
 
@@ -62,18 +66,22 @@ const Post = ({post ,user ,profile}) => {
         
       };
     
+    const showMore =()=>{
+      setCount((prev) =>prev+3);
+    };
+      
+     
+    
     
       
-    
-    
       
       
-      
-    
+    const postRef = useRef(null);
+
     
       return (
         
-        <div className="post"  style={{ width: `${profile && "100%"}` }}>
+        <div className="post"  style={{ width: `${profile && "100%"}` }} ref={postRef}>
         <div className="post_header">
           <Link
             to={`/profile/${post.user.username}`}
@@ -183,12 +191,13 @@ const Post = ({post ,user ,profile}) => {
             <div className="reacts_count_num">  {total > 0 && total} </div>
           </div>
           <div className="to_right">
-            <div className="comments_count">13 comments</div>
+            <div className="comments_count">{comments.length} comments</div>
             <div className="share_count">1 share</div>
           </div>
         </div>
         <div className="post_actions">
-          <ReactsPopup visible={visible} setVisible={setVisible}  postId={post._id}  reactHandler={reactHandler}/>
+        
+        <ReactsPopup visible={visible} setVisible={setVisible}  postId={post._id}  reactHandler={reactHandler}/>
           <div
             className="post_action hover1"
             onMouseOver={() => {
@@ -251,9 +260,20 @@ const Post = ({post ,user ,profile}) => {
         </div>
         <div className="comments_wrap">
           <div className="comments_order"></div>
-          <CreateComment user={user} postId={post._id} />
+          <CreateComment user={user} postId={post._id} setComments={setComments} setCount={setCount} />
 
-          {comments && comments.slice(0,count).map((comment)=><Commentss comment={comment}/>)}
+          {comments && [...comments].sort((a, b) => {
+              return new Date(b.commentedAt) - new Date(a.commentedAt);
+            }).slice(0, count).map((comment, i) => <Commentss comment={comment} key={i} />)}
+
+
+
+          {count < comments.length && (
+          <div className="view_comments" onClick={() => showMore()}>
+            View more comments
+          </div>
+        )}
+
           
         </div>
         {showMenu && (
@@ -262,6 +282,14 @@ const Post = ({post ,user ,profile}) => {
             postUserId={post.user._id}
             imagesLength={post?.images?.length}
             setShowMenu={setShowMenu}
+            postId={post._id}
+            checkSaved={checkSaved}
+            setCheckSaved={setCheckSaved}
+            images={post.images}
+            postRef={postRef}
+            
+
+  
           />
         )}
       </div>

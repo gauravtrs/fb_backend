@@ -38,4 +38,4 @@ const postSlice = createSlice({
 })
 
 export const {postsRequest , postsSuccess ,postsError} =postSlice.actions;
-export default postSlice.reducer;
+export default postSlice.reducer; 

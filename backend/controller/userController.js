@@ -7,6 +7,8 @@ const jwt =require('jsonwebtoken');
 const {generateNumber} =require('../hellpers/generateNumber');
 const Code = require("../models/code");
 const { post } = require("../models/post");
+const mongoose = require('mongoose');
+
 
 
 
@@ -675,4 +677,62 @@ exports.deleteRequest = async(req , res) =>{
   }
 };
 
- 
+
+
+exports.search =async(req, res) =>{
+
+  try {
+    const  searchTerm =req.params.searchTerm;
+    const result = await user.find({$text:{$search:searchTerm}}).select( "first_name last_name username picture");
+
+    res.json(result);
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+
+  }
+}
+
+
+exports.addToSearchHistory = async (req, res) => {
+  try {
+    const { searchUser } = req.body;
+    const search = {
+      user: searchUser,
+      createdAt: new Date(),
+    };
+    const user1 = await user.findById(req.user.userid.id);
+    const check = user1.search.find((x) => x.user.toString() === searchUser);
+    if (check) {
+      await user.updateOne(
+        {
+          _id: req.user.userid.id,
+          "search._id": check._id,
+        },
+        {
+          $set: { "search.$.createdAt": new Date() },
+        }
+      );
+    } else {
+      await user.findByIdAndUpdate(req.user.userid.id, {
+        $push: {
+          search,
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+exports.getSearchHistory  = async(req , res) =>{
+
+  try {
+    const results = await user.findById(req.user.userid.id).select("search").populate("search.user" , "first_name last_name username picture")
+    res.json(results.search);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+
+  }
+}

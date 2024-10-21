@@ -21,14 +21,20 @@ const initialState = {
         state.profile = action.payload;
         state.error = '';
       },
+
       profileError: (state, action) => {
         state.loading = false;
         state.error = action.payload;
       },
+      profilePosts: (state, action) => {
+        state.loading = false;
+        state.profile = { ...state.profile, posts: action.payload }; 
+        state.error = '';
+      }
     },
 })
 
 
-export const { profileRequest, profileSuccess, profileError } = profileSlice.actions;
+export const { profileRequest, profileSuccess, profileError ,profilePosts} = profileSlice.actions;
 
 export default profileSlice.reducer;
