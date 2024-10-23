@@ -683,6 +683,7 @@ exports.search =async(req, res) =>{
 
   try {
     const  searchTerm =req.params.searchTerm;
+    
     const result = await user.find({$text:{$search:searchTerm}}).select( "first_name last_name username picture");
 
     res.json(result);
@@ -697,6 +698,7 @@ exports.search =async(req, res) =>{
 exports.addToSearchHistory = async (req, res) => {
   try {
     const { searchUser } = req.body;
+    
     const search = {
       user: searchUser,
       createdAt: new Date(),
@@ -733,6 +735,56 @@ exports.getSearchHistory  = async(req , res) =>{
     res.json(results.search);
   } catch (error) {
     res.status(500).json({ message: error.message });
+
+  }
+}
+
+
+exports.removeFromSearch = async(req , res) =>{
+
+try {
+  
+  const {searchUser} =req.body;
+  await user.updateOne({_id:req.user.userid.id ,} ,{
+    $pull:{
+      search:{
+        user:searchUser
+      },
+    
+  },});
+
+
+
+} catch (error) {
+  res.status(500).json({ message: error.message });
+
+}
+  
+
+}
+
+
+exports.getFriendsPageInfos  =async(req , res) =>{
+
+  try {
+    const userFriends = await user.find({ _id:req.user.userid.id}).select('friends request')
+    .populate('friends' , "first_name last_name picture username")
+    .populate('request' ,"first_name last_name picture username" );
+
+    const sendRequests = await user.find({request:new mongoose.Types.ObjectId(req.user.userid.id),})
+    .select("first_name last_name picture username");
+
+    res.json({
+      friends: userFriends[0]?.friends,
+      requests: userFriends[0]?.request,
+      sendRequests,
+
+  });
+
+
+
+  } catch (error) {
+        res.status(500).json({ message: error.message });
 
   }
 }

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddToSearchHistory from '../../functions/AddToSearchHistory';
 import GetSearchHistory from '../../functions/GetSearchHistory';
+import RemoveSearch from '../../functions/RemoveSearch';
 
 
 const SearchMenu = ({color ,setshowSearchMenu}) => {
@@ -52,6 +53,14 @@ const addToSearchHistoryHandler =async(searchUser) =>{
   
  
 }
+
+const handleRemove =async(searchUser) =>{
+    RemoveSearch(searchUser , user?.token);
+            getHistory();
+
+
+}
+
 
   return (
     < div className='header_left search_area scrollbar' ref={ref}>
@@ -104,7 +113,12 @@ const addToSearchHistoryHandler =async(searchUser) =>{
                     {user.user.first_name} {user.user.last_name}
                   </span>
                 </Link>
-                <i className="exit_icon"></i>
+                <i className="exit_icon" 
+                onClick={() => {
+                  handleRemove(user.user._id);
+                }}
+
+                ></i>
               </div>
             ))}
       </div>

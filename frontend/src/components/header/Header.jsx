@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import {
   ArrowDown,
   Friends,
+  FriendsActive,
   Gaming,
   Home,
   HomeActive,
@@ -27,6 +28,8 @@ export default function Header({page ,getAllData}) {
   const [showSearchMenu ,setshowSearchMenu] =useState(false)
   const [showAllMenu, setShowAllMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+
+  
 
 
   const ref=useRef();
@@ -62,14 +65,15 @@ export default function Header({page ,getAllData}) {
       {showSearchMenu && <SearchMenu color={color} setshowSearchMenu={setshowSearchMenu}/>}
       
       <div className="header_middle">
-        <Link to="/" className={`middle_icon ${page ==="home" ? "active": "hover1"}`} onClick={()=>getAllData()}>
-        {page ==="home" ? <HomeActive /> :<Home color={color}/>}
-          
-        
-        </Link>
 
-        <Link to="/" className="middle_icon hover1">
-          <Friends color={color} />
+      <Link to="/" className={`middle_icon ${page === "home" ? "active" : "hover1"}`} onClick={() => getAllData && getAllData()}>
+  {page === "home" ? <HomeActive /> : <Home color={color} />}
+</Link>
+
+
+
+        <Link to="/friends" className={`middle_icon ${page ==='friends' ? 'active' :'hover1'}`}>
+          {page ==='friends' ? <FriendsActive/> :<Friends color={color} /> }
         </Link>
 
         <Link to="/" className="middle_icon hover1">

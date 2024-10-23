@@ -5,7 +5,9 @@ const {  register, activateAccount, login ,
       updateCoverPicture, updateDetails, addFriend, cancelRequest, unfollow, follow, 
       acceptRequest, unfriend, deleteRequest, search, 
       addToSearchHistory,
-      getSearchHistory} = require('../controller/userController');
+      getSearchHistory,
+      removeFromSearch,
+      getFriendsPageInfos} = require('../controller/userController');
 const {authUser}= require('../middlwares/userAuth');
 const router =express.Router();
 
@@ -77,6 +79,12 @@ router.put("/addToSearchHistory", authUser, addToSearchHistory);
 
 //get search history
 router.get('/getsearchhistory' , authUser , getSearchHistory);
+
+//remove search history
+router.put('/removesearchhistory' , authUser , removeFromSearch);
+
+//get friends request page infomation..
+router.get('/getFriendsPageInfos' , authUser , getFriendsPageInfos);
 
 
 

@@ -12,6 +12,7 @@ import CreatePostPopup from './components/createPostPopup/CreatePostPopup';
 import { useDispatch, useSelector } from 'react-redux';
 import { postsError,postsRequest,postsSuccess } from './reduxToolkit/GetAllPostsSlice';
 import axios from 'axios';
+import Friends from './pages/friends/Friends';
 
 const App = () => {
   const user =useSelector((state) =>state.user);
@@ -31,7 +32,7 @@ const App = () => {
     if(user){
       getAllData()
     }
-  },[]);
+  },[user]);
   
   const getAllData = async () => {
     try {
@@ -55,7 +56,7 @@ const App = () => {
 
   
   return (
-    <div>
+    <div >
            {visible && <CreatePostPopup user={user} setVisible={setVisible} /> }  
            
 
@@ -70,8 +71,10 @@ const App = () => {
 
           <Route element={<LoggedInRoutes/>}>
 
-          <Route path='/profile' element={<Profile setVisible={setVisible} getAllData={getAllData} />}/>
-          <Route path='/profile/:username' element={<Profile setVisible={setVisible} getAllData={getAllData}/>}/>
+          <Route path='/profile' element={<Profile setVisible={setVisible} getAllData={getAllData} />} />
+          <Route path='/profile/:username' element={<Profile setVisible={setVisible} getAllData={getAllData}/>} />
+          <Route path='/friends' element={<Friends setVisible={setVisible}  />} />
+          <Route path='/friends/:type' element={<Friends setVisible={setVisible}  />} />
 
           <Route path='/' element={<Home  setVisible={setVisible} getAllData={getAllData}/>}  />
           <Route path='/activate/:token' element={<ActivateUser/>}/>

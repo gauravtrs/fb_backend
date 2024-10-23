@@ -19,6 +19,8 @@ import Post from '../../components/post/Post';
   const user =useSelector((state) =>state.user)
   const {loading ,posts ,error} =useSelector((state) =>state.posts)
 
+  
+
   const middle = useRef(null);
   const [height, setHeight] = useState();
   useEffect(() => {

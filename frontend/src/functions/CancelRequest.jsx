@@ -16,5 +16,5 @@ export const CancelRequest = async (id, token) => {
     } catch (error) {
       return error.response.data.message;
     }
-  }; 
+  };  
   

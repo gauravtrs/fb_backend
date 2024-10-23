@@ -11,7 +11,7 @@ const LeftHome = ({user}) => {
 
   return (
     <div className="left_home scrollbar">
-    <Link to="/profile" className="left_link hover1">
+    <Link to="/profile" className="left_link hover2">
       <img src={user?.picture} alt="" />
       <span>
         {user?.first_name} {user.last_name}
@@ -27,7 +27,7 @@ const LeftHome = ({user}) => {
     ))}
     {!visible && (
       <div
-        className="left_link hover1"
+        className="left_link hover2"
         onClick={() => {
           setVisible(true);
         }}
@@ -49,7 +49,7 @@ const LeftHome = ({user}) => {
           />
         ))}
         <div
-          className="left_link hover1 "
+          className="left_link hover2 "
           onClick={() => {
             setVisible(false);
           }}
@@ -66,7 +66,7 @@ const LeftHome = ({user}) => {
       <div className="heading">Your Shortcuts</div>
       <div className="edit_shortcut">Edit</div>
     </div>
-    <div className="shortcut_list">
+    <div className="shortcut_list ">
       <Shortcut
         link="https://www.youtube.com"
         img="../../images/ytb.png"
@@ -77,6 +77,7 @@ const LeftHome = ({user}) => {
         link="https://www.instagram.com"
         img="../../images/insta.png"
         name="My Instagram "
+        
       />
     </div>
     <div className={`fb_copyright ${visible && "relative_fb_copyright"}`}>

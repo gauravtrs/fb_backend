@@ -6,6 +6,8 @@ import {BrowserRouter} from 'react-router-dom'
 import App from './App';
 import store from './reduxToolkit/Store';
 import {Provider} from 'react-redux'
+import "./styles/icons/icons.css";
+import "./styles/icons/dark.css";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
