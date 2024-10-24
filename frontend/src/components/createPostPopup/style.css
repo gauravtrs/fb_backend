@@ -6,10 +6,13 @@
   background: var(--bg-primary);
   box-shadow: 0 12px 28px 0 var(--shadow-1), 0 2px 4px 0 var(--shadow-2),
     inset 0 0 0 1px var(--shadow-inset);
-  min-height: 228px;
+  min-height: 300px; /* Adjust min-height */
+  max-height: 80vh;  /* Limit height on larger screens */
   width: 500px;
   border-radius: 5px;
+  overflow-y: auto; /* Allow scrolling if content exceeds the height */
 }
+
 .box_header {
   position: relative;
   display: flex;
@@ -140,6 +143,13 @@
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
+  display: block; /* Ensure button is displayed */
+}
+
+@media (max-width: 550px) {
+  .post_submit {
+    width: 100%; /* Full width for smaller screens */
+  }
 }
 .overflow_a {
   max-height: 500px;
@@ -457,4 +467,9 @@
 }
 .l0 {
   left: 0;
+}
+
+
+.postBox {
+  padding-bottom: 20px; /* Add padding to the bottom */
 }

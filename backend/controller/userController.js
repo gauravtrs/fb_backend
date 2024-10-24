@@ -774,10 +774,31 @@ exports.getFriendsPageInfos  =async(req , res) =>{
     const sendRequests = await user.find({request:new mongoose.Types.ObjectId(req.user.userid.id),})
     .select("first_name last_name picture username");
 
+      //findfriends..
+      // Extract friends and request lists
+          const friendsList = userFriends[0]?.friends.map((f) => f._id) || [];
+            const requestsList = userFriends[0]?.request.map((r) => r._id) || [];
+          const sendRequestsList = sendRequests.map((s) => s._id);
+
+      const findfriends = await user
+      .find({
+    _id: {
+      $nin: [
+        ...friendsList,    
+        ...requestsList,   
+        ...sendRequestsList,  
+        req.user.userid.id, 
+      ],
+    },
+  })
+  .select("first_name last_name picture username");
+
+
     res.json({
       friends: userFriends[0]?.friends,
       requests: userFriends[0]?.request,
       sendRequests,
+      findfriends,
 
   });
 

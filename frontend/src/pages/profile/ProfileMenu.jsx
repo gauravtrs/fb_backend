@@ -11,7 +11,7 @@ export default function ProfileMenu() {
         <Link to="/" className="hover1">
           About
         </Link>
-        <Link to="/" className="hover1">
+        <Link to="/friends/all" className="hover1">
           Friends
         </Link>
         <Link to="/" className="hover1">

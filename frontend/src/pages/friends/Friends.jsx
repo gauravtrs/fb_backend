@@ -11,6 +11,8 @@ export default function Friends() {
   const {friends} =useSelector((state) =>state.friends)
   const { type } = useParams();
 
+  console.log('all find friends--' ,friends)
+
 
 
 
@@ -123,15 +125,17 @@ export default function Friends() {
                   <i className="right_icon"></i>
                 </div>
               </div>
-              <div className="mmenu_item hover3">
+              <Link to={'/friends/findfriends'}> 
+              <div className={`mmenu_item hover3 ${type ==="findfriends" && "active_friends"}`}>
                 <div className="small_circle">
                   <i className="all_friends_icon"></i>
                 </div>
-                <span>Custom Lists</span>
+                <span>Find friends</span>
                 <div className="rArrow">
                   <i className="right_icon"></i>
                 </div>
               </div>
+              </Link>
             </div>
           </div>
           <div className="friends_right">
@@ -146,7 +150,7 @@ export default function Friends() {
                   )}
                 </div>
                 <div className="flex_wrap">
-                  {friends.requests &&
+                  {friends.requests && friends.requests.length ===0 ? "No received request" : friends.requests &&
                     friends.requests.map((user) => (
                       <Card
                         userr={user}
@@ -169,7 +173,7 @@ export default function Friends() {
                   )}
                 </div>
                 <div className="flex_wrap">
-                  {friends.sendRequests &&
+                  {friends.sendRequests && friends.sendRequests.length ===0 ? 'No records  found' : friends.sendRequests &&
                     friends.sendRequests.map((user) => (
                       <Card
                         userr={user}
@@ -192,7 +196,7 @@ export default function Friends() {
                   )}
                 </div>
                 <div className="flex_wrap">
-                  {friends.friends &&
+                  {friends.friends && friends.friends.length ===0 ? "No friends found" : friends.friends &&
                     friends.friends.map((user) => (
                       <Card
                         userr={user}
@@ -204,6 +208,32 @@ export default function Friends() {
                 </div>
               </div>
             )}
+
+          {(type === undefined || type === "findfriends") && (
+              <div className="friends_right_wrap">
+                <div className="friends_left_header">
+                  <h3>Find friends</h3>
+                  {type === undefined && (
+                    <Link to="/friends/findfriends" className="see_link hover3">
+                      See all
+                    </Link>
+                  )}
+                </div>
+                <div className="flex_wrap">
+                  {friends.findfriends && friends.findfriends.length === 0 ? "There is no new friend" : friends.findfriends&&
+                    friends.findfriends
+                    .map((user) => (
+                      <Card
+                        userr={user}
+                        key={user._id}
+                        type="findfriends"
+                        getData={getData}
+                      />
+                    ))}
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </>
