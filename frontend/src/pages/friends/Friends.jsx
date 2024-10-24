@@ -10,7 +10,7 @@ export default function Friends() {
   const { user } = useSelector((state) => ({ ...state }));
   const {friends} =useSelector((state) =>state.friends)
   const { type } = useParams();
-  console.log('type--' , type)
+
 
 
 

@@ -8,6 +8,8 @@ import CreatePost from '../../components/createpost/CreatePost';
 import SendVerification from '../../components/home/sendVerification/SendVerification';
 import "./style.css";
 import Post from '../../components/post/Post';
+import { HashLoader } from "react-spinners";
+
 
 
 
@@ -38,16 +40,22 @@ import Post from '../../components/post/Post';
         <Stories />
         {user.verified === false && <SendVerification user={user} />}
         <CreatePost user={user} setVisible={setVisible} />
-        <div className="posts">
-          {posts.map((post) => (
-            <Post key={post._id} post={post} user={user} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="sekelton_loader">
+            <HashLoader color="#1876f2" />
+          </div>
+        ) : (
+          <div className="posts">
+            {posts.map((post, i) => (
+              <Post key={i} post={post} user={user} />
+            ))}
+          </div>
+        )}
       </div>
       <RightHome user={user} />
     </div>
-
-  )
+  );
 }
+
 
 export default Home
