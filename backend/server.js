@@ -50,10 +50,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-//called data base connection
+//called data base connection  
 dbConnection();
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
- 
+  
