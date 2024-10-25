@@ -7,6 +7,10 @@ const routerUpload = require("./routes/uploadRoutes");
 const routerPost = require("./routes/postRoutes");
 const fileUpload = require('express-fileupload');
 const routerReact = require("./routes/reactRoutes");
+const path = require("path");
+
+
+
 
 const app = express();
 dotenv.config();
@@ -34,21 +38,21 @@ app.use('/' ,routerReact);
 
 const port = process.env.PORT || 5000; 
 
-// ** Production deployment code **
-if (process.env.NODE_ENV === 'production') {
-  // Set the static folder for the production build
-  app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
-  // Any unknown routes should be redirected to the frontend's index.html
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
+
+
+// Serve static files in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+  );
 } else {
-  // For development environment
-  app.get('/', (req, res) => {
-    res.send('API is running...');
+  app.get("/", (req, res) => {
+    res.send("API is running...");
   });
 }
+  
 
 //called data base connection  
 dbConnection();
