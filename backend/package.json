@@ -6,7 +6,7 @@
   "scripts": {
     
    "start": " nodemon server.js",
-  "build": "cd frontend && npm install && npm run build",
+   "build": "cd ../frontend && npm install && npm run build", 
   "client": "npm start --prefix frontend",
   "dev:all": "concurrently \"npm run start\" \"npm run client\""
 
