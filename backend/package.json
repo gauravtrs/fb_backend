@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     
-  "start": "nodemon server.js",
-  "dev": "nodemon server.js",
-  "build": "cd ../frontend && npm install && npm run build",
+   "start": " nodemon server.js",
+  "build": "cd frontend && npm install && npm run build",
   "client": "npm start --prefix frontend",
-  "dev:all": "concurrently \"npm run dev\" \"npm run client\"",
-  "postinstall": "npm run build"
+  "dev:all": "concurrently \"npm run start\" \"npm run client\""
+
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
