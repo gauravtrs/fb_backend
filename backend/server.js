@@ -30,7 +30,25 @@ app.use('/',routerPost);
 //React router
 app.use('/' ,routerReact);
 
+
+
 const port = process.env.PORT || 5000; 
+
+// ** Production deployment code **
+if (process.env.NODE_ENV === 'production') {
+  // Set the static folder for the production build
+  app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+
+  // Any unknown routes should be redirected to the frontend's index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+} else {
+  // For development environment
+  app.get('/', (req, res) => {
+    res.send('API is running...');
+  });
+}
 
 //called data base connection
 dbConnection();
