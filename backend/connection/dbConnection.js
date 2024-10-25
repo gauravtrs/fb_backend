@@ -12,7 +12,7 @@ const dbConnection =async()=>{
         console.log(`\n mongodb connection !! DB => host: ${dbUrl.connection.host}`);
 
     } catch (error) {
-        console.log('Data base connection failed');
+        console.log('Data base connection failed' ,dbUrl);
         
     }
 
