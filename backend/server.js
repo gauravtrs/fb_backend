@@ -8,15 +8,20 @@ const routerPost = require("./routes/postRoutes");
 const fileUpload = require('express-fileupload');
 const routerReact = require("./routes/reactRoutes");
 const path = require("path");
-
+const cookieParser = require('cookie-parser');
+ 
 
 
 
 const app = express();
 dotenv.config();
 
+
+//set cookie-parser middleware
+app.use(cookieParser());
 //set cors middleware
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());// for parsing json string data to json object
 
 //file upload package
