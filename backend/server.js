@@ -8,7 +8,7 @@ const routerPost = require("./routes/postRoutes");
 const fileUpload = require('express-fileupload');
 const routerReact = require("./routes/reactRoutes");
 const path = require("path");
-const cookieParser = require('cookie-parser');
+
  
 
 
@@ -18,7 +18,7 @@ dotenv.config();
 
 
 //set cookie-parser middleware
-app.use(cookieParser());
+
 //set cors middleware
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -41,27 +41,13 @@ app.use('/' ,routerReact);
 
 
 
-const port = process.env.PORT || 5000; 
+const port = process.env.PORT || 5000;  
+
+ 
 
 
 
-
-
-//for production route
-if(process.env.NODE_ENV === 'production'){
-  //set static folder
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-  //any route that is not will be redirected to index.html
-
-  app.get('*' ,(req ,res) =>
-    res.sendFile(path.join(__dirname, "../frontend/build", "index.html")));
-
-}else{
-  app.get('/' ,(req,res) =>{
-      res.send('API is running...');
-  });
-}    
+  
 
 //called data base connection  
 dbConnection();
