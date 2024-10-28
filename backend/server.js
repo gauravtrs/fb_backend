@@ -17,7 +17,6 @@ const app = express();
 dotenv.config();
 
 
-//set cookie-parser middleware
 
 //set cors middleware
 app.use(cors());
