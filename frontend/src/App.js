@@ -58,7 +58,7 @@ const App = () => {
   return (
     <div >
            {visible && <CreatePostPopup user={user} setVisible={setVisible} /> }  
-           
+            
 
       <Routes>
 
