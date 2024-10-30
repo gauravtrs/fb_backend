@@ -15,7 +15,7 @@ import axios from 'axios';
 import Friends from './pages/friends/Friends';
 
 const App = () => {
-  const user =useSelector((state) =>state.user);
+  const user =useSelector((state) =>state.user); 
 
   
   

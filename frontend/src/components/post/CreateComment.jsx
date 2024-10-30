@@ -100,6 +100,31 @@ const [picker, setPicker] = useState(false);
     }
   };
 
+
+
+//on click comment icon..
+  const clickComment = async () => {
+    if (text.trim() || commentImage) {
+      setLoading(true);
+      if (commentImage) {
+        const img = dataURItoBlob(commentImage);
+        const path = `${user.username}/post_images/${postId}`;
+        let formData = new FormData();
+        formData.append("path", path);
+        formData.append("file", img);
+        const imgComment = await uplaodImages(formData, path, user.token);
+        const comments = await Comment(postId, text, imgComment[0].url, user.token);
+        setComments(comments);
+        setCommentImage("");
+      } else {
+        const comments = await Comment(postId, text, "", user.token);
+        setComments(comments);
+      }
+      setLoading(false);
+      setText("");
+    }
+  };
+
   
 
 
@@ -142,6 +167,13 @@ const [picker, setPicker] = useState(false);
                <div className="comment_circle" style={{ marginTop: "5px" }}>
             <ClipLoader size={20} color="#1876f2" loading={loading} />
           </div>
+
+          {/* Comment Icon - Only show when text or commentImage has a value */}
+          {(text.trim() || commentImage) && (
+            <div className="comment_circle_icon hover2" onClick={clickComment}>
+              <i className="comment_icon"></i>
+            </div>
+          )}
 
         <div
           className="comment_circle_icon hover2"
