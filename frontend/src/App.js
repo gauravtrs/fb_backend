@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postsError,postsRequest,postsSuccess } from './reduxToolkit/GetAllPostsSlice';
 import axios from 'axios';
 import Friends from './pages/friends/Friends';
+ 
+
 
 const App = () => {
   const user =useSelector((state) =>state.user); 

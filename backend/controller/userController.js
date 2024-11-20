@@ -8,6 +8,7 @@ const {generateNumber} =require('../hellpers/generateNumber');
 const Code = require("../models/code");
 const { post } = require("../models/post");
 const mongoose = require('mongoose');
+const chat = require("../models/chat");
 
 
 
@@ -809,3 +810,66 @@ exports.getFriendsPageInfos  =async(req , res) =>{
 
   }
 }          
+
+
+exports.sendMessage = async (req, res) => {
+  try {
+    const { receiverId, message } = req.body;
+
+    // Validate sender and receiver IDs
+    if (!req.user || !req.user.userid || !req.user.userid.id) {
+      return res.status(400).json({ success: false, message: "Invalid sender ID" });
+    }
+
+    const senderId = req.user.userid.id;
+
+    console.log("Sender ID:", req.user.userid.id);
+    console.log("Message body:", req.body);
+
+
+    const newMessage = new chat({
+      sender: senderId,
+      receiver: receiverId,
+      message,
+      messageAt:new Date(),
+    });
+
+    await newMessage.save();
+
+    res.status(200).json({ success: true, message: "Message sent successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error sending message" });
+  }
+};
+
+
+
+
+exports.getMessages = async (req, res) => {
+  try {
+    const { receiverId } = req.params;
+
+    if (!req.user || !req.user.userid || !req.user.userid.id) {
+      return res.status(400).json({ success: false, message: "Invalid sender ID" });
+    }
+
+    const senderId = req.user.userid.id;
+
+    const messages = await chat
+      .find({
+        $or: [
+          { sender: senderId, receiver: receiverId },
+          { sender: receiverId, receiver: senderId },
+        ],
+      })
+      .sort({ createdAt: 1 }) // Use createdAt for sorting
+      .populate("sender", "first_name last_name username email") 
+      .populate("receiver", "first_name last_name username email"); 
+
+    console.log("Populated Messages:", messages);
+
+    res.status(200).json({ success: true, messages });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error fetching messages" });
+  }
+};

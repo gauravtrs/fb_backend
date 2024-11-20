@@ -7,7 +7,9 @@ const {  register, activateAccount, login ,
       addToSearchHistory,
       getSearchHistory,
       removeFromSearch,
-      getFriendsPageInfos} = require('../controller/userController');
+      getFriendsPageInfos,
+      sendMessage,
+      getMessages} = require('../controller/userController');
 const {authUser}= require('../middlwares/userAuth');
 const router =express.Router();
 
@@ -84,7 +86,13 @@ router.get('/getsearchhistory' , authUser , getSearchHistory);
 router.put('/removesearchhistory' , authUser , removeFromSearch);
 
 //get friends request page infomation..
-router.get('/getFriendsPageInfos' , authUser , getFriendsPageInfos);
+router.get('/getFriendsPageInfos' , authUser , getFriendsPageInfos);  
+
+//send message route ...
+router.post('/sendmessage' , authUser , sendMessage);
+
+//get message route ...
+router.get('/getmessage/:receiverId' , authUser , getMessages)
 
 
 

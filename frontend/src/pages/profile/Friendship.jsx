@@ -9,11 +9,16 @@ import { CancelRequest } from "../../functions/CancelRequest";
 import { Unfollow } from "../../functions/Unfollow";
 import { Unfriend } from "../../functions/Unfriend";
 import { DeleteRequest} from "../../functions/DeleteRequest";
+import MessageModal from "./MessageModal";
 
 export default function Friendship({ friendshipp ,profileid }) {
   const [friendsMenu, setFriendsMenu] = useState(false);
   const [respondMenu, setRespondMenu] = useState(false);
   const [friendship, setFriendship] = useState(friendshipp);
+
+  const [messageModalOpen, setMessageModalOpen] = useState(false);
+  const openMessageModal = () => setMessageModalOpen(true);
+  const closeMessageModal = () => setMessageModalOpen(false);
 
   useEffect(() => {
     setFriendship(friendshipp);
@@ -179,7 +184,7 @@ export default function Friendship({ friendshipp ,profileid }) {
             <span>Follow</span>
           </button>
         )}
-        <button className={friendship?.friends ? "blue_btn" : "gray_btn"}>
+        <button className={friendship?.friends ? "blue_btn" : "gray_btn"} onClick={openMessageModal} >
           <img
             src="../../../icons/message.png"
             className={friendship?.friends && "invert"}
@@ -187,6 +192,8 @@ export default function Friendship({ friendshipp ,profileid }) {
           />
           <span>Message</span>
         </button>
+        {messageModalOpen && <MessageModal receiverId={profileid} closeModal={closeMessageModal} />}
+          
       </div>
     </div>
   );
