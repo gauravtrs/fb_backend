@@ -1,4 +1,19 @@
-/* General Modal Styles */
+
+.message-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto; 
+    background: #f9f9f9;
+    scroll-behavior: smooth; 
+  }
+  
+  
+ .message-body > div:last-child {
+    margin-bottom: 0; 
+  }
+  
+
+
 .message-modal {
     position: fixed; 
     top: 50%;
@@ -48,11 +63,7 @@
   
  
   .message {
-    max-width: 80%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 14px;
+    display: block; /* Ensure each message takes full width */
     word-wrap: break-word;
   }
   
