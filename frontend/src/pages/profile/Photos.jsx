@@ -9,7 +9,7 @@ const Photos = ({username ,token}) => {
 
     
 
-
+    
 
     useEffect(() => {
         if(username){
@@ -45,12 +45,14 @@ const Photos = ({username ,token}) => {
             dispatch(photosSuccess(data));
 
           }
+
+    
             
           
         } catch (error) {
           dispatch(photoseError(error.response?.data?.message || 'Error fetching photos'));
         }
-      };
+      };  
     
       
 
@@ -68,14 +70,23 @@ const Photos = ({username ,token}) => {
           ? "1 Photo"
           : `${photos.total_count} photos`}
       </div>
+
       <div className="profile_card_grid">
-        {photos.resources &&
-          photos.resources.slice(0, 9).map((img) => (
-            <div className="profile_photo_card" key={img.public_id}>
-              <img src={img.secure_url} alt="" />
-            </div>
-          ))}
-      </div>
+  {Array.isArray(photos.resources) && photos.resources.length > 0 ? (
+    photos.resources.slice(0, 9).map((img, index) => (
+      img && img.secure_url ? (
+        <div className="profile_photo_card" key={img.public_id || index}>
+          <img src={img.secure_url} alt={img.public_id || 'Photo'} />
+        </div>
+      ) : null
+    ))
+  ) : (
+    <p>No photos available.</p>
+  )}
+</div>
+
+
+
     </div>
 
 

@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     loading: false,
-    photos: '',
+     photos: '',
+    
     error: '',
   };
   
@@ -18,7 +19,7 @@ const initialState = {
       },
       photosSuccess: (state, action) => {
         state.loading = false;
-        state.photos = action.payload;
+        state.photos = action.payload.resources ? action.payload : { resources: [] };
         state.error = '';
       },
       photoseError: (state, action) => {

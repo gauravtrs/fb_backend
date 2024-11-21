@@ -36,10 +36,17 @@ const userSlice = createSlice({
         },
 
         updatePicturepic:(state ,action) =>{
-            if(state){
+            if(state && action.payload){
+              
                 state.picture=action.payload ;
+                Cookies.set('user', JSON.stringify(state));
             }
-            Cookies.set('user', JSON.stringify(state));
+            else {
+                console.error(
+                    "Cannot update picture: State or action.payload is invalid.",
+                    { state, payload: action.payload } // Add detailed log
+                )
+              }
         },
     },
 });

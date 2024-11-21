@@ -20,6 +20,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import CreatePostPopup from '../../components/createPostPopup/CreatePostPopup';
 import { HashLoader } from "react-spinners";
+import { createSelector } from '@reduxjs/toolkit';
 
 
 
@@ -37,6 +38,7 @@ const Profile = ({getAllData}) => {
   
 
   
+
 
   
   
@@ -57,8 +59,12 @@ const Profile = ({getAllData}) => {
     };
   }, [profilename]);
 
+
   useEffect(() => {
-    setOthername(profile?.details?.otherName);
+    setOthername(profile?.details?.otherName || "");
+
+   
+    
   }, [profile]);
 
 
@@ -78,7 +84,7 @@ const Profile = ({getAllData}) => {
         }
       );
 
-      if (data.ok === false) {
+      if (!data || data.ok === false) {
         navigate('/profile'); 
       } else {
         dispatch(profileSuccess(data));
@@ -94,6 +100,8 @@ const Profile = ({getAllData}) => {
   const [height, setHeight] = useState();
   const [leftHeight, setLeftHeight] = useState();
   const [scrollHeight, setScrollHeight] = useState();
+
+
   useEffect(() => {
     setHeight(profileTop.current.clientHeight + 300);
     setLeftHeight(leftSide.current.clientHeight);
@@ -102,9 +110,13 @@ const Profile = ({getAllData}) => {
       window.addEventListener("scroll", getScroll, { passive: true });
     };
   }, [loading, scrollHeight]);
+
+
   const check = useMediaQuery({
     query: "(min-width:901px)",
   });
+
+
   const getScroll = () => {
     setScrollHeight(window.pageYOffset);
   };
@@ -174,6 +186,7 @@ const Profile = ({getAllData}) => {
                       {Array.from(new Array(6), (val, i) => i + 1).map(
                         (id, i) => (
                           <Skeleton
+                          key={i}
                             circle
                             height="32px"
                             width="32px"

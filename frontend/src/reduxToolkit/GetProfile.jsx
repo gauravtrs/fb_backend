@@ -27,10 +27,15 @@ const initialState = {
         state.error = action.payload;
       },
       profilePosts: (state, action) => {
-        state.loading = false;
-        state.profile = { ...state.profile, posts: action.payload }; 
-        state.error = '';
-      }
+        if (state.profile) {
+          state.profile = { ...state.profile, posts: action.payload };
+        } else {
+          console.error("Cannot update posts: profile is null.");
+        }
+        state.error = ''; // Ensure the error is cleared if no issue
+      } 
+
+      
     },
 })
 

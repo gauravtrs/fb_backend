@@ -85,11 +85,11 @@ const UpdateProfilePicture = ({setImage ,image,setError ,setshow ,pRef }) => {
             user.id,
             user.token
           );
-          if (new_post === "ok") {
+          if (new_post.status === "ok") {
             
             setLoading(false)
             setImage('') 
-            dispatch(updatePicturepic(res[0].url));
+            pRef.current.style.backgroundImage=`url(${res[0].url})`;
             Cookies.set(
               "user",
               JSON.stringify({
@@ -97,7 +97,9 @@ const UpdateProfilePicture = ({setImage ,image,setError ,setshow ,pRef }) => {
                 picture: res[0].url,
               })
             );
-            pRef.current.style.backgroundImage=`url(${res[0].url})`;
+            dispatch(updatePicturepic(res[0].url));
+
+            
             setshow(false);
           } else {
             setLoading(false)
