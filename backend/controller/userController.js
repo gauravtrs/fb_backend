@@ -823,7 +823,7 @@ exports.sendMessage = async (req, res) => {
 
     const senderId = req.user.userid.id;
 
-    console.log("Sender ID:", req.user.userid.id);
+    
     
 
 
@@ -866,7 +866,7 @@ exports.getMessages = async (req, res) => {
       .populate("sender", "first_name last_name username email picture") 
       .populate("receiver", "first_name last_name username email picture"); 
 
-    console.log("Populated Messages:", messages);
+    
 
     res.status(200).json({ success: true, messages });
   } catch (error) {
