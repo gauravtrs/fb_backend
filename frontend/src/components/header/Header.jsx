@@ -49,7 +49,8 @@ export default function Header({page ,getAllData}) {
         
         <Link to="/" className="header_logo">
           <div className="circle">
-            <Logo />
+             {/* <Logo />  */}
+             <img src="../../icons/yourlogo.png" alt="" className='login_img' />   
           </div>
         </Link>
         <div className="search search1" onClick={() =>setshowSearchMenu(true)}>

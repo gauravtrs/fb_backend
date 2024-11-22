@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import  {loginuser}  from '../../reduxToolkit/UserSlice'
 import  Cookies from 'js-cookie'
+import './login.css';
 
 
 const loginInfo={
@@ -64,8 +65,9 @@ const LoginForm = ({setVisible}) => {
           <div className="login_wrap">
 
             <div className="login_1">
-              <img src="../../icons/facebook.svg" alt="" />
-              <span>Facebook help you connect and share with the people in your life.</span>
+               {/* <img src="../../icons/facebook.svg" alt="" className='login-img' />   */}
+                <h1 className='yourfb'>Youbook.in</h1> 
+              <span>Yourbook help you connect and share with the people in your life.</span>
             </div>
 
             <div className="login_2">

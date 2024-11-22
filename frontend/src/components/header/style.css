@@ -622,3 +622,10 @@ header {
   color: var(--blue-color);
 }
 /* active headeer */
+
+
+.login_img{
+  height: 35px;
+  width: 35px;
+  border-radius: 50px;
+}
