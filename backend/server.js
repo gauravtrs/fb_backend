@@ -27,7 +27,7 @@ app.use(express.json());// for parsing json string data to json object
 app.use(fileUpload({
   useTempFiles:true,
 }));
-
+ 
  
 //user route
 app.use("/", userRoute);

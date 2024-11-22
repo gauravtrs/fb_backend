@@ -824,7 +824,7 @@ exports.sendMessage = async (req, res) => {
     const senderId = req.user.userid.id;
 
     console.log("Sender ID:", req.user.userid.id);
-    console.log("Message body:", req.body);
+    
 
 
     const newMessage = new chat({
@@ -863,8 +863,8 @@ exports.getMessages = async (req, res) => {
         ],
       })
       .sort({ createdAt: 1 }) // Use createdAt for sorting
-      .populate("sender", "first_name last_name username email") 
-      .populate("receiver", "first_name last_name username email"); 
+      .populate("sender", "first_name last_name username email picture") 
+      .populate("receiver", "first_name last_name username email picture"); 
 
     console.log("Populated Messages:", messages);
 

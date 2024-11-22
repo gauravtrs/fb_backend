@@ -58,6 +58,7 @@ export default function MessageModal({ receiverId, closeModal }) {
             _id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
+            picture: user.picture,
           },
           message,
         },
@@ -85,8 +86,18 @@ export default function MessageModal({ receiverId, closeModal }) {
           >
             <p>
               {msg.sender
-                ? `${msg.sender.first_name} ${msg.sender.last_name}: ${msg.message}`
-                : "Loading..."}
+                ?  (
+                  <>
+                    {msg.sender.picture && (
+                      <img
+                        src={msg.sender.picture}
+                        alt="Sender"
+                        className="message_img"
+                      />
+                    )}
+                    {msg.message}
+                  </>
+                ): ("Loading...")}
             </p>
             <span>
               <Moment fromNow interval={30}>{msg.messageAt}</Moment>
